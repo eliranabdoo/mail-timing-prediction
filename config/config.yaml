@@ -1,0 +1,17 @@
+data_paths:
+  - "C:/Users/darkr/PycharmProjects/rightbound/data/eng.csv"
+  - "C:/Users/darkr/PycharmProjects/rightbound/data/companies.csv"
+  - "C:/Users/darkr/PycharmProjects/rightbound/data/contacts.csv"
+test_data_paths: null
+debug_mode: false
+debug_mode_sample_size: 700
+cv_num_folds: 2
+scoring: "balanced_accuracy"
+num_trials: 10
+objective_optim_direction: "maximize"
+test_size: 0.2
+n_estimators_range:
+  - 1
+  - 100
+shuffle_data: true
+stratify_split: true

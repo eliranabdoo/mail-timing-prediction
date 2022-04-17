@@ -1,0 +1,6 @@
+venv/
+.ipynb_checkpoints/
+outputs/
+*.xml
+*.iml
+*.csv
