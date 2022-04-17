@@ -3,21 +3,20 @@ data_paths:
   - "C:/Users/darkr/PycharmProjects/rightbound/data/companies.csv"
   - "C:/Users/darkr/PycharmProjects/rightbound/data/contacts.csv"
 test_data_paths: null
-debug_mode: false
-debug_mode_sample_size: 700
-cv_num_folds: 5
+debug_mode: true
+debug_mode_sample_size: 2000
+cv_num_folds: 2
 scoring: "roc_auc"
-num_trials: 100
+num_trials: 1
 objective_optim_direction: "maximize"
 test_size: 0.3
 n_estimators_range:
   - 1
-  - 100
-max_depth_range:
-  - 1
-  - 6
+  - 10
 min_category_freq_range:
   - 1
   - 200
 shuffle_data: true
 stratify_split: true
+fill_dict: null
+seed: 1337
