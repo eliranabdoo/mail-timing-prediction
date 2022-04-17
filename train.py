@@ -20,7 +20,7 @@ from data_loading import SENIORITY_COL, STATE_COL, HOUR_COL, POSITION_COL
 from utils import (
     InfrequentReplacer,
     get_best_optuna_params_from_study,
-    load_data,
+    load_train_data,
     LabeledData,
     PipelineFactory,
     cyclic_error,
@@ -117,7 +117,7 @@ def create_objective_function(
 @hydra.main(config_name="config", config_path="config")
 def main(conf: StudyConfig) -> None:
     np.random.seed(conf.seed)
-    data = load_data(*conf.data_paths)
+    data = load_train_data(*conf.data_paths)
     if conf.debug_mode:
         sample_indices = np.random.choice(
             len(data.data), size=conf.debug_mode_sample_size
@@ -126,7 +126,7 @@ def main(conf: StudyConfig) -> None:
         data.labels = data.labels.iloc[sample_indices]
 
     if conf.test_data_paths is not None:
-        test_data = load_data(*conf.test_data_paths)
+        test_data = load_train_data(*conf.test_data_paths)
         train_data = data
     else:
         train_data, test_data = split_data(data, conf)

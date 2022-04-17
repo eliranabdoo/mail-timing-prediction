@@ -65,7 +65,7 @@ class LabeledData:
     labels: pd.Series
 
 
-def load_data(
+def load_train_data(
         engagements_csv_path, companies_csv_path, contacts_csv_path
 ) -> LabeledData:
     engagements_df, companies_df, contacts_df = (
@@ -214,10 +214,10 @@ def cyclic_error(y, y_pred, period):
 def predict_hours(clf_pipeline, X):
     X_all_hours = pd.concat(24 * [X])
     X_all_hours[HOUR_COL] = [str(i) for i in range(24) for _ in range(len(X))]
-    y_pred_all_hours = clf_pipeline.predict_proba(X_all_hours)
+    y_pred_all_hours = pd.DataFrame(clf_pipeline.predict_proba(X_all_hours))
     y_pred = []
     for i in range(len(X)):
-        curr_probs = y_pred_all_hours.iloc[i::24, :]
+        curr_probs = y_pred_all_hours.iloc[i::len(X), :]
         pred_label = str(np.argmax(curr_probs.iloc[:, 1]))
         y_pred.append(pred_label)
     return y_pred
