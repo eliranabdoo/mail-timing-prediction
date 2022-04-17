@@ -9,10 +9,10 @@ cv_num_folds: 2
 scoring: "roc_auc"
 num_trials: 1
 objective_optim_direction: "maximize"
-test_size: 0.3
+test_size: 0.1
 n_estimators_range:
   - 1
-  - 10
+  - 2
 min_category_freq_range:
   - 1
   - 200

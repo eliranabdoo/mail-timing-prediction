@@ -66,14 +66,13 @@ def split_data(data: LabeledData, conf: StudyConfig) -> Tuple[LabeledData, Label
     return train_data, test_data
 
 
-def save_result(best_model, test_score, conf: StudyConfig):
+def save_result(best_model, test_score):
     with open("./model.pickle", "wb") as f:
         dill.dump(best_model, f)
     with open("./metadata.json", "w") as f:
         json.dump(
             {
-                "test_score": test_score,
-                "conf": dict(conf)
+                "test_score": test_score
             },
             fp=f,
         )
@@ -219,7 +218,7 @@ def main(conf: StudyConfig) -> None:
     best_model.fit(X=x_train, y=y_train)
     test_score = score_func(estimator=best_model, X=x_test, y_true=y_test)
 
-    save_result(best_model, test_score, conf)
+    save_result(best_model, test_score)
 
 
 if __name__ == "__main__":
