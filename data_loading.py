@@ -8,6 +8,7 @@ EMAIL_ID_COL, CONTACT_ID_COL, CAMPAIGN_ID_COL, COMPANY_ID_COL = "email_id", "con
 TIMESTAMP_COL, EVENT_COL = "timestamp", "event"
 POSITION_COL, FUNCTION_COL, SENIORITY_COL = "position", "function", "seniority"
 STATE_COL, COUNTRY_COL, SIZE_COL, INDUSTRY_COL = "state", "country", "size", "linkedin_industry"
+HOUR_COL = "hour"
 
 
 def create_success_df(engagements_df, companies_df, contacts_df) -> pd.DataFrame:
@@ -23,15 +24,22 @@ def create_success_df(engagements_df, companies_df, contacts_df) -> pd.DataFrame
     df[SUCCESS_COL] = df.index.isin(engaged_prospects)
     df[PREV_EMAILS_COL] = df.groupby(index_columns).size() - 1
     df.timestamp = df.timestamp.apply(lambda t: pd.Timestamp(t))
-    df[LABEL_COL] = df.timestamp.apply(lambda t: t.weekday())
     df = df.reset_index(drop=True)
-    df = df.drop([EVENT_COL, TIMESTAMP_COL, COMPANY_ID_COL, POSITION_COL], axis=1)
+    df = df.drop([EVENT_COL, COMPANY_ID_COL], axis=1)
     return df
 
 
 def create_positive_only_train_data(engagements_df, companies_df, contacts_df) -> Tuple[pd.DataFrame, pd.Series]:
     success_df = create_success_df(engagements_df, companies_df, contacts_df)
     positive_df = success_df[success_df[SUCCESS_COL]]
-    x = positive_df.drop([SUCCESS_COL, LABEL_COL], axis=1)
-    y = positive_df[LABEL_COL]
+    x = positive_df.drop([SUCCESS_COL, TIMESTAMP_COL], axis=1)
+    y = positive_df.timestamp.apply(lambda t: t.hour)
+    return x, y
+
+
+def create_full_train_data(engagements_df, companies_df, contacts_df) -> Tuple[pd.DataFrame, pd.Series]:
+    success_df = create_success_df(engagements_df, companies_df, contacts_df)
+    x = success_df.drop([SUCCESS_COL, TIMESTAMP_COL], axis=1)
+    x[HOUR_COL] = success_df[TIMESTAMP_COL].apply(lambda t: str(t.hour))
+    y = success_df[SUCCESS_COL].replace({True: 1, False: 0})
     return x, y

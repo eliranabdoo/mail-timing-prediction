@@ -5,13 +5,19 @@ data_paths:
 test_data_paths: null
 debug_mode: false
 debug_mode_sample_size: 700
-cv_num_folds: 2
-scoring: "balanced_accuracy"
-num_trials: 10
+cv_num_folds: 5
+scoring: "roc_auc"
+num_trials: 100
 objective_optim_direction: "maximize"
-test_size: 0.2
+test_size: 0.3
 n_estimators_range:
   - 1
   - 100
+max_depth_range:
+  - 1
+  - 6
+min_category_freq_range:
+  - 1
+  - 200
 shuffle_data: true
 stratify_split: true
