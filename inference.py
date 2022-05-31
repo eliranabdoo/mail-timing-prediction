@@ -2,14 +2,14 @@ import dill
 
 from utils import predict_hours, load_train_data
 
-MODEL_PATH = r"C:\Users\darkr\PycharmProjects\rightbound\outputs\2022-04-18\00-51-01\model.pickle"
+MODEL_PATH = r".\outputs\2022-04-18\00-51-01\model.pickle"
 
 
 def load_data():
     # Don't really use the train data...
-    X = load_train_data(*["C:/Users/darkr/PycharmProjects/rightbound/data/eng.csv",
-                          "C:/Users/darkr/PycharmProjects/rightbound/data/companies.csv",
-                          "C:/Users/darkr/PycharmProjects/rightbound/data/contacts.csv"]).data
+    X = load_train_data(*["./data/eng.csv",
+                          "./data/companies.csv",
+                          ".data/contacts.csv"]).data
     return X
 
 

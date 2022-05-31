@@ -1,7 +1,7 @@
 data_paths:
-  - "C:/Users/darkr/PycharmProjects/rightbound/data/eng.csv"
-  - "C:/Users/darkr/PycharmProjects/rightbound/data/companies.csv"
-  - "C:/Users/darkr/PycharmProjects/rightbound/data/contacts.csv"
+  - "./data/eng.csv"
+  - "./data/companies.csv"
+  - "./data/contacts.csv"
 test_data_paths: null
 debug_mode: true
 debug_mode_sample_size: 2000

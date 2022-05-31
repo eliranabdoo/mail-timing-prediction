@@ -4,3 +4,6 @@ outputs/
 *.xml
 *.iml
 *.csv
+submission/
+__pycache__/
+.idea/
